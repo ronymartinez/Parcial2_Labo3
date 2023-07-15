@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parcial 2</title>
+  <link rel="stylesheet" href="estilos.css">
+
+</head>
+
+<body id="cuerpo">
+
+  <div id="datos">
+
+    <div id="opciones">
+      <label class="labelTitulo">FORM DATOS</label>
+
+      <div id="filtrar">
+        <label>Filtrar por:</label>
+        <select id="filter_opcion">
+          <option id="option_todos" selected>Todos</option>
+          <option id="option_empleado">Empleado</option>
+          <option id="option_cliente">Cliente</option>
+        </select>
+      </div>
+
+      <div id="calcular">
+        <label>Calcular edad promedio:</label>
+        <input style="width: 20%;" disabled="disabled" id="promedio">
+        <button id="botonCalcular">Calcular</button>
+      </div>
+      <label>Mostrar Columnas:</label>
+
+      <div id="divChecks">
+        <div>
+          <input type="checkbox" class="checks" id="checkID" checked />
+          <label for="check1">ID&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        </div>
+        <div>
+          <input type="checkbox" class="checks" id="checkNombre" checked />
+          <label for="check1">Nombre&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        </div>
+        <div>
+          <input type="checkbox" class="checks" id="checkApellido" checked />
+          <label for="check1">Apellido&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        </div>
+        <div>
+          <input type="checkbox" id="checkEdad" checked />
+          <label for="check1">Edad&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        </div>
+        <div>
+          <input type="checkbox" id="checkSueldo" checked />
+          <label for="check1">Sueldo&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        </div>
+
+        <div>
+          <input type="checkbox" id="checkVentas" checked />
+          <label for="check1">Ventas&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        </div>
+
+        <div>
+          <input type="checkbox" id="checkTelefono" checked />
+          <label for="check1">Telefono &nbsp;&nbsp;&nbsp;&nbsp;</label>
+        </div>
+        <div>
+          <input type="checkbox" id="checkCompras" checked />
+          <label for="check1">Compras&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        </div>
+
+
+      </div>
+    </div>
+
+    <div id="grilla">
+
+      <table>
+        <thead id="table_head">
+          <tr>
+            <th class="headCeldas" id="headID">ID</th>
+            <th class="headCeldas" id="headNombre">Nombre</th>
+            <th class="headCeldas" id="headApellido">Apellido</th>
+            <th class="headCeldas" id="headEdad">Edad</th>
+            <th class="headCeldas" id="headSueldo">Sueldo</th>
+            <th class="headCeldas" id="headVentas">Ventas</th>
+            <th class="headCeldas" id="headTelefono">Telefono</th>
+            <th class="headCeldas" id="headCompras">Compras</th>
+            <th class="headCeldas" id="headModificar">Modificar</th>
+            <th class="headCeldas" id="headEliminar">Eliminar</th>
+          </tr>
+        </thead>
+
+        <tbody id="table_body">
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <div id="divAgregar">
+      <button id="botonAgregar">Agregar</button>
+    </div>
+
+  </div>
+
+  <div id="ABM" style="display: none;">
+    <div style="margin-bottom: 20px; text-align: center;margin-top: 3%;">
+      <label id="labelTituloID" class="labelTitulo">ALTA</label>
+
+    </div>
+
+    <div class="abm_div">
+      <label>ID: </label> <input id="inputID" disabled="disabled" class="abm_inputs" type="text">
+    </div>
+    <div class="abm_div">
+      <label>Nombre: </label> <input id="inputNombre" class="abm_inputs" type="text">
+    </div>
+    <div class="abm_div">
+      <label>Apellido: </label> <input id="inputApellido" class="abm_inputs" type="text">
+    </div>
+    <div class="abm_div">
+      <label>Edad: </label> <input id="inputEdad" class="abm_inputs" type="text">
+    </div>
+    <div class="abm_div">
+      <label>Tipo:</label>
+      <select class="abm_inputs" id="abm_tipo">
+        <option id="abm_empleado">Empleado</option>
+        <option id="abm_cliente">Cliente</option>
+      </select>
+    </div>
+    <div id="abm_sueldo" class="abm_div">
+      <label>Sueldo</label> <input id="inputSueldo" class="abm_inputs" type="text">
+    </div>
+    <div id="abm_ventas" class="abm_div">
+      <label>Ventas</label> <input id="inputVentas" class="abm_inputs" type="text">
+    </div>
+
+    <div id="abm_telefono" class="abm_div" style="display:none;">
+      <label>Telefono</label> <input id="inputTelefono" class="abm_inputs" type="text">
+    </div>
+    <div id="abm_compras" class="abm_div" style="display:none;">
+      <label>Compras</label> <input id="inputCompras" class="abm_inputs" type="text">
+    </div>
+
+    <div id="abm_botones">
+      <button id="botonAlta">Confirmar</button>
+      <button id="botonModificar">Modificar</button>
+      <button id="botonEliminar">Eliminar</button>
+      <button id="botonCancelar">Cancelar</button>
+    </div>
+  </div>
+
+</body>
+
+<script>
+
+  class Persona {
+    constructor(id, nombre, apellido, edad) {
+      this.id = id;
+      this.nombre = nombre;
+      this.apellido = apellido;
+      this.edad = edad;
+    }
+    toString() {
+      return "-ID: " + this.id + " -Nombre: " + this.nombre + " -Apellido: " + this.apellido + " -Edad: " + this.edad;
+    }
+    toJson() {
+      return JSON.stringify(persona);
+    }
+  }
+
+  class Empleado extends Persona {
+    constructor(id, nombre, apellido, edad, sueldo, ventas) {
+      super(id, nombre, apellido, edad);
+      this.sueldo = sueldo;
+      this.ventas = ventas;
+    }
+    toString() {
+      var texto = super.toString();
+      return texto + " -Sueldo: " + this.sueldo + " -Ventas: " + this.ventas;
+    }
+  }
+
+  class Cliente extends Persona {
+    constructor(id, nombre, apellido, edad, telefono, compras) {
+      super(id, nombre, apellido, edad);
+      this.telefono = telefono;
+      this.compras = compras;
+    }
+    toString() {
+      var texto = super.toString();
+      return texto + " -Telefono: " + this.telefono + " -Compras: " + this.compras;
+    }
+  }
+
+  class Spinner {
+    #spinnerElement;
+
+    constructor() {
+      const spiner = document.createElement('div');
+      spiner.classList.add('spinner');
+
+      const newElement = document.createElement('div');
+      newElement.classList.add('overlay');
+
+      newElement.appendChild(spiner)
+      this.#spinnerElement = newElement
+    }
+
+    add() {
+      document.body.appendChild(this.#spinnerElement);
+    }
+
+    remove() {
+      if (this.#spinnerElement.parentNode === document.body) {
+        document.body.removeChild(this.#spinnerElement);
+      }
+    }
+  }
+
+  function $(id) {
+    return document.getElementById(id);
+  }
+
+
+  //------------------------------------------//
+  //----------- PETICIONES -------------------//
+  //------------------------------------------//
+
+  var listaPersonas = [];
+  let datos = [];
+  const spiner = new Spinner();
+  let url = "http://localhost/LAB/EntregaP2/PersonasEmpleadosClientes.php";
+
+
+  //GET - XMLHTTP
+  function GETlistaServer() {
+    const xml = new XMLHttpRequest();
+    xml.responseType = "json";
+    xml.onerror = _ => { };
+    xml.open("GET", url, true);
+    xml.setRequestHeader("Content-Type", "application/Json");
+    spiner.add();
+    xml.onreadystatechange = _ => {
+      if (xml.readyState === XMLHttpRequest.DONE) {
+        spiner.remove();
+        if (xml.status == 200) {
+          crearListaJson2(xml.response);
+          cargarGrilla();
+        } else {
+          alert("No se pudo obtener el texto");
+        }
+      }
+    };
+    xml.send();
+  };
+
+
+  //FETCH - THEN (PROMESA)
+  function PUTaltaServer(objeto) {
+    spiner.add();
+    fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/Json"
+      },
+      body: JSON.stringify(objeto)
+    })
+      .then(res => {
+        spiner.remove();
+        if (res.status == 200) {
+          res.json().then(json => {
+
+            if ("sueldo" in objeto) {
+              var nuevoEmpleado = new Empleado(json.id, objeto.nombre, objeto.apellido, objeto.edad, objeto.sueldo, objeto.ventas);
+              listaPersonas.push(nuevoEmpleado);
+            } else {
+              var nuevoCliente = new Cliente(json.id, objeto.nombre, objeto.apellido, objeto.edad, objeto.telefono, objeto.compras);
+              listaPersonas.push(nuevoCliente);
+            }
+            alert("Se ha realizado el alta!");
+            cerrarForm();
+            cargarGrilla();
+          });
+        } else {
+          alert("Problema con el servidor. No se ha realizado el alta.");
+        }
+      });
+  }
+
+
+  // POST - ASYNC - AWAIT - FETCH
+  async function POSTModificarLista(objeto) {
+    spiner.add();
+    let respuesta = await fetch(url, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(objeto)
+    });
+    if (respuesta.status != 400) {
+      if ("sueldo" in objeto) {
+        var empleadoActualizado = new Empleado(objeto.id, objeto.nombre, objeto.apellido, objeto.edad, objeto.sueldo, objeto.ventas);
+
+        for (let index = 0; index < listaPersonas.length; index++) {
+          if (listaPersonas[index].id == empleadoActualizado.id) {
+            listaPersonas[index] = empleadoActualizado;
+            break;
+          }
+        }
+
+      } else {
+        var clienteActualizado = new Cliente(objeto.id, objeto.nombre, objeto.apellido, objeto.edad, objeto.telefono, objeto.compras);
+
+        for (let index = 0; index < listaPersonas.length; index++) {
+          if (listaPersonas[index].id == clienteActualizado.id) {
+            listaPersonas[index] = clienteActualizado;
+            break;
+          }
+        }
+        
+        alert("Se ha realizado la modificación!");
+      }
+    }
+    else {
+      spiner.remove();
+      alert("Error en el servidor, no se ha realizado la modificación!");
+
+    }
+    spiner.remove();
+    cerrarForm();
+    cargarGrilla();
+  }
+
+
+   // DELETE - FETCH - THEN
+  function DELETElista(id) {
+    spiner.add();
+    fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/Json"
+      },
+      body: JSON.stringify({ id: id })
+    })
+      .then(res => {
+        spiner.remove();
+        if (res.status == 200) {      
+
+            for (let index = 0; index < listaPersonas.length; index++) {
+              if (listaPersonas[index].id == id) {
+                listaPersonas.splice(index, 1);
+                break;
+              }
+            }
+            alert("Se ha realizado la eliminación!");
+       
+        } else {
+          alert("Problema con el servidor. No se ha realizado la eliminación.");
+        }
+        cerrarForm();
+        cargarGrilla();
+      })
+  }
+
+
+
+
+
+  ///---------- FIN PETICIONES
+
+
+  function calcularPromedios() {
+    var listaGrilla = elegirLista();
+    if (listaGrilla != null) {
+      const acumulador = listaGrilla.reduce((valorAnterior, elemento, indice, vector) => {
+        return valorAnterior + elemento.edad;
+      }, 0);
+      $("promedio").value = acumulador / listaGrilla.length;
+
+    } else {
+      $("promedio").value = 0;
+    }
+  }
+
+
+  function crearListaJson2(datos) {
+
+    if (datos != null) {
+      for (let i = 0; i < datos.length; i++) {
+        if ("sueldo" in datos[i]) {
+          var empleado = new Empleado(datos[i].id, datos[i].nombre, datos[i].apellido, datos[i].edad, datos[i].sueldo, datos[i].ventas);
+          listaPersonas.push(empleado);
+        }
+
+        if ("telefono" in datos[i]) {
+          var cliente = new Cliente(datos[i].id, datos[i].nombre, datos[i].apellido, datos[i].edad, datos[i].telefono, datos[i].compras);
+          listaPersonas.push(cliente);
+        };
+      }
+    }
+  }
+
+
+  function elegirLista() {
+    var listaGrilla;
+    if (listaPersonas != null) {
+      if ($("option_todos").selected) {
+        listaGrilla = listaPersonas;
+      }
+      if ($("option_empleado").selected) {
+        listaGrilla = filtrarPorEmpleado();
+      }
+      if ($("option_cliente").selected) {
+        listaGrilla = filtrarPorCliente();
+      }
+      return listaGrilla;
+    }
+  }
+
+  function cargarGrilla() {
+    vaciarGrilla();
+
+    var listaGrilla = elegirLista();
+
+    for (let i = 0; i < listaGrilla.length; i++) {
+      var fila = document.createElement("tr");
+      var idFila = "fila_" + (i + 1);
+      fila.setAttribute("class", "fila");
+      fila.setAttribute("id", idFila);
+
+      //CELDA 1 - ID
+      var textoCelda1 = listaGrilla[i].id;
+      let celda1 = document.createElement("td");
+      let texto1 = document.createTextNode(textoCelda1);
+      celda1.appendChild(texto1);
+      celda1.setAttribute("class", "bodyID");
+      fila.appendChild(celda1);
+
+      //CELDA 2 - NOMBRE
+      var textoCelda2 = listaGrilla[i].nombre;
+      let celda2 = document.createElement("td");
+      let texto2 = document.createTextNode(textoCelda2);
+      celda2.appendChild(texto2);
+      celda2.setAttribute("class", "bodyNombre");
+      fila.appendChild(celda2);
+
+      //CELDA 3 - APELLIDO
+      var textoCelda3 = listaGrilla[i].apellido;
+      let celda3 = document.createElement("td");
+      let texto3 = document.createTextNode(textoCelda3);
+      celda3.appendChild(texto3);
+      celda3.setAttribute("class", "bodyApellido");
+      fila.appendChild(celda3);
+
+      //CELDA 4 - EDAD
+      var textoCelda4 = listaGrilla[i].edad;
+      let celda4 = document.createElement("td");
+      let texto4 = document.createTextNode(textoCelda4);
+      celda4.appendChild(texto4);
+      celda4.setAttribute("class", "bodyEdad");
+      fila.appendChild(celda4);
+
+      //CELDA 5 -EQUIPO
+      let celda5 = document.createElement("td");
+      if (listaGrilla[i].sueldo == undefined) {
+        let texto5 = document.createTextNode("N/A");
+        celda5.appendChild(texto5);
+      } else {
+        let texto5 = document.createTextNode(listaGrilla[i].sueldo);
+        celda5.appendChild(texto5);
+      }
+      celda5.setAttribute("class", "bodySueldo");
+      fila.appendChild(celda5);
+
+      //CELDA 6 - VENTAS
+      let celda6 = document.createElement("td");
+      if (listaGrilla[i].ventas == undefined) {
+        let texto6 = document.createTextNode("N/A");
+        celda6.appendChild(texto6);
+      } else {
+        let texto6 = document.createTextNode(listaGrilla[i].ventas);
+        celda6.appendChild(texto6);
+      }
+      celda6.setAttribute("class", "bodyVentas");
+      fila.appendChild(celda6);
+
+      //CELDA 7 - TELÉFONO
+      let celda7 = document.createElement("td");
+      if (listaGrilla[i].telefono == undefined) {
+        let texto7 = document.createTextNode("N/A");
+        celda7.appendChild(texto7);
+      } else {
+        let texto7 = document.createTextNode(listaGrilla[i].telefono);
+        celda7.appendChild(texto7);
+      }
+      celda7.setAttribute("class", "bodyTelefono");
+      fila.appendChild(celda7);
+
+      //CELDA 8 - COMPRAS
+      let celda8 = document.createElement("td");
+      if (listaGrilla[i].compras == undefined) {
+        let texto8 = document.createTextNode("N/A");
+        celda8.appendChild(texto8);
+      } else {
+        let texto8 = document.createTextNode(listaGrilla[i].compras);
+        celda8.appendChild(texto8);
+      }
+      celda8.setAttribute("class", "bodyCompras");
+      fila.appendChild(celda8);
+
+
+      //CELDA 9 - MODIFICAR
+      let celda9 = document.createElement("td");
+      let textoCelda9 = document.createTextNode("Modificar");
+      celda9.appendChild(textoCelda9);
+      celda9.setAttribute("class", "btnCeldaModificar");
+      fila.appendChild(celda9);
+
+      celda9.addEventListener("click", (e) => {
+        elegirPersona(e);
+        $("labelTituloID").innerHTML = "Modificar";
+         $("botonAlta").style.display = "none";
+         $("botonEliminar").style.display = "none";
+        // $("botonModificar").style.display = "";
+        $("abm_tipo").disabled = "disabled";
+        $("datos").style.display = "none";
+      });
+
+      //CELDA 10 - ELIMINAR
+      let celda10 = document.createElement("td");
+      let textoCelda10 = document.createTextNode("Eliminar");
+      celda10.appendChild(textoCelda10);
+      celda10.setAttribute("class", "btnCeldaEliminar");
+      fila.appendChild(celda10);
+
+      celda10.addEventListener("click", (e) => {
+        elegirPersona(e);
+        $("labelTituloID").innerHTML = "Eliminar";
+        $("botonAlta").style.display = "none";
+        $("botonEliminar").style.display = "";
+        $("botonModificar").style.display = "none";
+        $("abm_tipo").disabled = "disabled";
+        $("inputNombre").disabled = "disabled";
+        $("inputApellido").disabled = "disabled";
+        $("inputSueldo").disabled = "disabled";
+        $("inputTelefono").disabled = "disabled";
+        $("inputCompras").disabled = "disabled";
+        $("inputVentas").disabled = "disabled";
+        $("inputEdad").disabled = "disabled";
+        $("abm_tipo").disabled = "disabled";
+        $("datos").style.display = "none";
+      });
+
+
+
+      $("table_body").appendChild(fila);
+    }
+  }
+
+  function abrirFormVacio() {
+    $("ABM").style.display = "";
+    vaciarFormulario();
+    
+    $("labelTituloID").innerHTML = "Alta";
+    $("inputID").style.display = "disabled";
+    $("abm_tipo").disabled = "";
+    $("botonModificar").style.display = "none";
+    $("botonEliminar").style.display = "none";
+    $("botonAlta").style.display = "";
+    $("datos").style.display = "none";
+
+  }
+  function abrirForm() {
+    $("ABM").style.display = "";
+    vaciarFormulario();
+    seleccionarTipo();
+    $("botonAlta").style.display = "";
+  }
+  function cerrarForm() {
+    $("ABM").style.display = "none";
+    $("datos").style.display = "";
+  }
+  function seleccionarTipo() {
+    if ($("abm_empleado").selected) {
+      $("abm_telefono").style.display = "none";
+      $("abm_compras").style.display = "none";
+      $("abm_sueldo").style.display = "";
+      $("abm_ventas").style.display = "";
+    }
+    if ($("abm_cliente").selected) {
+      $("abm_sueldo").style.display = "none";
+      $("abm_ventas").style.display = "none";
+      $("abm_telefono").style.display = "";
+      $("abm_compras").style.display = "";
+    }
+  }
+  function ocultarColumnas() {
+    var listaChecks = document.getElementsByClassName("fila");
+
+    if ($("checkID").checked) {
+      $("headID").style.display = "";
+      var bodies = document.getElementsByClassName('bodyID');
+      for (var i = 0; i < bodies.length; i++) {
+        bodies[i].style.display = '';
+      }
+    } else {
+      $("headID").style.display = "none";
+      var bodies = document.getElementsByClassName('bodyID');
+
+      for (var i = 0; i < bodies.length; i++) {
+        bodies[i].style.display = 'none';
+      }
+    }
+
+    if ($("checkNombre").checked) {
+      $("headNombre").style.display = "";
+      var bodies = document.getElementsByClassName('bodyNombre');
+      for (var i = 0; i < bodies.length; i++) {
+        bodies[i].style.display = '';
+      }
+    } else {
+      $("headNombre").style.display = "none";
+      var bodies = document.getElementsByClassName('bodyNombre');
+
+      for (var i = 0; i < bodies.length; i++) {
+        bodies[i].style.display = 'none';
+      }
+    }
+
+    if ($("checkApellido").checked) {
+      $("headApellido").style.display = "";
+      var bodies = document.getElementsByClassName('bodyApellido');
+      for (var i = 0; i < bodies.length; i++) {
+        bodies[i].style.display = '';
+      }
+    } else {
+      $("headApellido").style.display = "none";
+      var bodies = document.getElementsByClassName('bodyApellido');
+
+      for (var i = 0; i < bodies.length; i++) {
+        bodies[i].style.display = 'none';
+      }
+    }
+
+    if ($("checkEdad").checked) {
+      $("headEdad").style.display = "";
+      var bodies = document.getElementsByClassName('bodyEdad');
+      for (var i = 0; i < bodies.length; i++) {
+        bodies[i].style.display = '';
+      }
+    } else {
+      $("headEdad").style.display = "none";
+      var bodies = document.getElementsByClassName('bodyEdad');
+
+      for (var i = 0; i < bodies.length; i++) {
+        bodies[i].style.display = 'none';
+      }
+    }
+
+    if ($("checkSueldo").checked) {
+      $("headSueldo").style.display = "";
+      var bodies = document.getElementsByClassName('bodySueldo');
+      for (var i = 0; i < bodies.length; i++) {
+        bodies[i].style.display = '';
+      }
+    } else {
+      $("headSueldo").style.display = "none";
+      var bodies = document.getElementsByClassName('bodySueldo');
+
+      for (var i = 0; i < bodies.length; i++) {
+        bodies[i].style.display = 'none';
+      }
+    }
+
+    if ($("checkVentas").checked) {
+      $("headVentas").style.display = "";
+      var bodies = document.getElementsByClassName('bodyVentas');
+      for (var i = 0; i < bodies.length; i++) {
+        bodies[i].style.display = '';
+      }
+    } else {
+      $("headVentas").style.display = "none";
+      var bodies = document.getElementsByClassName('bodyVentas');
+      for (var i = 0; i < bodies.length; i++) {
+        bodies[i].style.display = 'none';
+      }
+      for (var i = 0; i < bodies.length; i++) {
+        bodies[i].style.display = 'none';
+      }
+    }
+
+
+
+    if ($("checkTelefono").checked) {
+      $("headTelefono").style.display = "";
+      var bodies = document.getElementsByClassName('bodyTelefono');
+      for (var i = 0; i < bodies.length; i++) {
+        bodies[i].style.display = '';
+      }
+    } else {
+      $("headTelefono").style.display = "none";
+      var bodies = document.getElementsByClassName('bodyTelefono');
+
+      for (var i = 0; i < bodies.length; i++) {
+        bodies[i].style.display = 'none';
+      }
+    }
+
+    if ($("checkCompras").checked) {
+      $("headCompras").style.display = "";
+      var bodies = document.getElementsByClassName('bodyCompras');
+      for (var i = 0; i < bodies.length; i++) {
+        bodies[i].style.display = '';
+      }
+    } else {
+      $("headCompras").style.display = "none";
+      var bodies = document.getElementsByClassName('bodyCompras');
+
+      for (var i = 0; i < bodies.length; i++) {
+        bodies[i].style.display = 'none';
+      }
+    }
+
+    if ($("checkID").checked) {
+      $("headID").style.display = "";
+      var bodies = document.getElementsByClassName('bodyID');
+      for (var i = 0; i < bodies.length; i++) {
+        bodies[i].style.display = '';
+      }
+    } else {
+      $("headID").style.display = "none";
+      var bodies = document.getElementsByClassName('bodyID');
+      for (var i = 0; i < bodies.length; i++) {
+        bodies[i].style.display = 'none';
+      }
+    }
+
+    if ($("checkID").checked) {
+      $("headID").style.display = "";
+      var bodies = document.getElementsByClassName('bodyID');
+      for (var i = 0; i < bodies.length; i++) {
+        bodies[i].style.display = '';
+      }
+    } else {
+      $("headID").style.display = "none";
+      var bodies = document.getElementsByClassName('bodyID');
+      for (var i = 0; i < bodies.length; i++) {
+        bodies[i].style.display = 'none';
+      }
+    }
+  }
+  function vaciarGrilla() {
+    let b = $("table_body");
+    while (b.lastElementChild) {
+      b.removeChild(b.lastElementChild);
+    }
+  }
+  function vaciarFormulario() {
+    $("inputID").value = "";
+    $("inputNombre").value = "";
+    $("inputApellido").value = "";
+    $("inputEdad").value = "";
+    $("inputSueldo").value = "";
+    $("inputVentas").value = "";
+    $("inputTelefono").value = "";
+    $("inputCompras").value = "";
+  }
+
+  function filtrarPorEmpleado() {
+
+    var nuevaLista = []
+    listaPersonas.map(function (elemento) {
+      if (elemento instanceof Empleado) {
+        nuevaLista.push(elemento);
+      }
+    });
+    return nuevaLista;
+  }
+  function filtrarPorCliente() {
+
+    var nuevaLista = []
+    listaPersonas.map(function (elemento) {
+      if (elemento instanceof Cliente) {
+        nuevaLista.push(elemento);
+      }
+    });
+    return nuevaLista;
+
+  }
+
+  function altaPersona() {
+
+    boolNombre = (($("inputNombre").value).trim() != null && ($("inputNombre").value).trim() != "") && (isNaN($("inputNombre").value));
+    boolApellido = (($("inputApellido").value).trim() != null && ($("inputApellido").value).trim() != "") && (isNaN($("inputNombre").value));
+    boolEdad = ($("inputEdad").value) > 15;
+
+    if (!boolNombre) {
+      alert("Verifique el nombre ingresado.");
+    } else {
+      if (!boolApellido) {
+        alert("Verifique el apellido ingresado.");
+      } else {
+        if (!boolEdad) {
+          alert("Verifique la edad, debe ser mayor de 15.");
+        }
+      }
+    }
+
+
+    if (boolNombre && boolApellido && boolEdad) {
+      nombre = $("inputNombre").value;
+      apellido = $("inputApellido").value;
+      edad = $("inputEdad").value;
+
+      if ($("abm_empleado").selected) {
+        boolSueldo = ($("inputSueldo").value) > 0;
+        boolVentas = parseInt(($("inputVentas").value)) > 0;
+
+        if (!boolSueldo) {
+          alert("Verifique el sueldo ingresado, debe ser mayor a 0.");
+        } else {
+          if (!boolVentas) {
+            alert("Verifique el número de ventas, debe ser mayor a 0.");
+          }
+        }
+
+        if (boolSueldo && boolVentas) {
+          sueldo = ($("inputSueldo").value);
+          ventas = parseInt(($("inputVentas").value));
+          var objeto = { "nombre": nombre, "apellido": apellido, "edad": edad, "sueldo": sueldo, "ventas": ventas };
+          PUTaltaServer(objeto);
+        } else {
+          error = false;
+        }
+      }
+
+      if ($("abm_cliente").selected) {
+
+        boolTelefono = (($("inputTelefono").value).trim() != null && ($("inputTelefono").value).trim() != "");
+        boolCompras = (parseInt($("inputCompras").value)) > 0;
+
+        if (!boolTelefono) {
+          alert("Verifique el número de teléono.");
+        } else {
+          if (!boolCompras) {
+            alert("Verifique el número de compras.");
+          }
+        }
+
+        if (boolTelefono && boolCompras) {
+
+          telefono = ($("inputTelefono").value);
+          compras = parseInt($("inputCompras").value);
+
+          var objeto = { "nombre": nombre, "apellido": apellido, "edad": edad, "telefono": telefono, "compras": compras };
+          PUTaltaServer(cliente);
+    
+        }
+      }
+    }
+  }
+  function elegirPersona(e) {
+    var listaGrilla = elegirLista();
+
+    let tr = e.target.parentNode;
+    var indice = tr.children[0].textContent;
+
+    for (let index = 0; index < listaPersonas.length; index++) {
+      const element = listaPersonas[index];
+      if (element.id == indice) {
+        var unaPersona = element;
+        break;
+      }
+    }
+
+    if (unaPersona instanceof Empleado) {
+      $("abm_empleado").selected = true;
+      abrirForm();
+      $("inputID").value = unaPersona.id;
+      $("inputNombre").value = unaPersona.nombre;
+      $("inputApellido").value = unaPersona.apellido;
+      $("inputEdad").value = unaPersona.edad;
+
+      $("inputSueldo").value = unaPersona.sueldo;
+      $("inputVentas").value = unaPersona.ventas;
+
+    } else {
+      $("abm_cliente").selected = true;
+      abrirForm();
+      $("inputID").value = unaPersona.id;
+      $("inputNombre").value = unaPersona.nombre;
+      $("inputApellido").value = unaPersona.apellido;
+      $("inputEdad").value = unaPersona.edad;
+
+      $("inputTelefono").value = unaPersona.telefono;
+      $("inputCompras").value = unaPersona.compras;
+    }
+
+  }
+
+  function modificarPersona() {
+    boolError = true;
+    boolNombre = (($("inputNombre").value).trim() != null && ($("inputNombre").value).trim() != "") && (isNaN($("inputNombre").value));
+    boolApellido = (($("inputApellido").value).trim() != null && ($("inputApellido").value).trim() != "") && (isNaN($("inputNombre").value));
+    boolEdad = ($("inputEdad").value) > 15;
+
+
+    if (!boolNombre) {
+      alert("Verifique el nombre ingresado.");
+    } else {
+      if (!boolApellido) {
+        alert("Verifique el apellido ingresado.");
+      } else {
+        if (!boolEdad) {
+          alert("Verifique la edad, debe ser mayor de 15.");
+        }
+      }
+    }
+
+
+    if (boolNombre && boolApellido && boolEdad) {
+      id = $("inputID").value;
+      nombre = $("inputNombre").value;
+      apellido = $("inputApellido").value;
+      edad = $("inputEdad").value;
+
+      if ($("abm_empleado").selected) {
+
+        boolSueldo = ($("inputSueldo").value) > 0;
+        boolVentas = parseInt(($("inputVentas").value)) > 0;
+
+        if (!boolSueldo) {
+          alert("Verifique el sueldo ingresado, debe ser mayor a 0.");
+        } else {
+          if (!boolVentas) {
+            alert("Verifique el número de ventas, debe ser mayor a 0.");
+          }
+        }
+        if (boolSueldo && boolVentas) {
+
+          sueldo = ($("inputSueldo").value);
+          ventas = parseInt(($("inputVentas").value));
+          var objeto = { "id": id, "nombre": nombre, "apellido": apellido, "edad": edad, "sueldo": sueldo, "ventas": ventas };
+
+          POSTModificarLista(objeto);
+        }
+      }
+
+      if ($("abm_cliente").selected) {
+
+        boolTelefono = (($("inputTelefono").value).trim() != null && ($("inputTelefono").value).trim() != "");
+        boolCompras = (parseInt($("inputCompras").value)) > 0;
+
+        if (!boolTelefono) {
+          alert("Verifique el número de teléono.");
+        } else {
+          if (!boolCompras) {
+            alert("Verifique el número de compras.");
+          }
+        }
+
+        if (boolTelefono && boolCompras) {
+          telefono = parseInt(($("inputTelefono").value));
+          compras = parseInt(($("inputCompras").value));
+
+          telefono = ($("inputTelefono").value);
+          compras = parseInt(($("inputCompras").value));
+          var objeto = { "id": id, "nombre": nombre, "apellido": apellido, "edad": edad, "telefono": telefono, "compras": compras };
+
+          POSTModificarLista(objeto);
+        }
+      }
+    }
+
+  }
+
+  function eliminarPersona() {
+
+    var id = $("inputID").value;
+    $("ABM").style.display = "";
+    vaciarFormulario();
+
+    $("botonModificar").style.display = "disabled";
+
+    DELETElista(id);
+  }
+
+
+  window.addEventListener("load", GETlistaServer);
+
+
+  $("filter_opcion").addEventListener("click", cargarGrilla);
+  $("botonCalcular").addEventListener("click", calcularPromedios);
+  $("botonAgregar").addEventListener("click", abrirFormVacio);
+  $("divChecks").addEventListener("click", ocultarColumnas);
+  $("abm_tipo").addEventListener("click", seleccionarTipo);
+  $("botonModificar").addEventListener("click", modificarPersona);
+  $("botonEliminar").addEventListener("click", eliminarPersona);
+  $("botonCancelar").addEventListener("click", cerrarForm);
+  $("botonAlta").addEventListener("click", altaPersona);
+
+</script>
+
+</html>
